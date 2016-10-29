@@ -27,7 +27,7 @@ Newsletter::getApi();
 You can install this package via Composer using:
 
 ```bash
-composer require spatie/laravel-newsletter
+composer require spatie/mcmcMailchimp
 ```
 
 You must also install this service provider.
@@ -51,13 +51,13 @@ If you want to make use of the facade you must install it as well.
 ];
 ```
 
-To publish the config file to `app/config/laravel-newsletter.php` run:
+To publish the config file to `app/config/mcmcMailchimp.php` run:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\Newsletter\NewsletterServiceProvider"
 ```
 
-This will publish a file `laravel-newsletter.php` in your config directory with the following contents: 
+This will publish a file `mcmcMailchimp.php` in your config directory with the following contents: 
 ```php
 return [
 
