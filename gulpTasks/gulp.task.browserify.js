@@ -7,7 +7,7 @@ module.exports = (function (gulp, config, $) {
 
         gulp.src(config.appDir + 'app.js')
             .pipe($.browserify({}))
-            .pipe($.rename('pages-compiled.js'))
+            .pipe($.rename('mailchimp-compiled.js'))
             .pipe(gulp.dest(config.publicDir + 'js/'));
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\StartUp;
+namespace Mcms\Mailchimp\StartUp;
 
 
 use App;
@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Register your Facades/aliases here
  * Class RegisterFacades
- * @package Mcms\Events\StartUp
+ * @package Mcms\Mailchimp\StartUp
  */
 class RegisterFacades
 {
@@ -23,7 +23,7 @@ class RegisterFacades
          * Register Facades
          */
         $facades = \Illuminate\Foundation\AliasLoader::getInstance();
-//        $facades->alias('ModuleRegistry', \Mcms\Events\Facades\ModuleRegistryFacade::class);
+//        $facades->alias('ModuleRegistry', \Mcms\Mailchimp\Facades\ModuleRegistryFacade::class);
         
     }
 }

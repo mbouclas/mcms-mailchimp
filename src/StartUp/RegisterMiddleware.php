@@ -1,16 +1,16 @@
 <?php
 
-namespace Mcms\Events\StartUp;
+namespace Mcms\Mailchimp\StartUp;
 
 
 
-use Mcms\Events\Middleware\PublishPage;
+use Mcms\Mailchimp\Middleware\PublishPage;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class RegisterMiddleware
- * @package Mcms\Events\StartUp
+ * @package Mcms\Mailchimp\StartUp
  */
 class RegisterMiddleware
 {
@@ -22,6 +22,6 @@ class RegisterMiddleware
      */
     public function handle(ServiceProvider $serviceProvider, Router $router)
     {
-        $router->middleware('publishPage', PublishPage::class);
+
     }
 }

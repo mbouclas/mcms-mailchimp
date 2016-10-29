@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\Installer;
+namespace Mcms\Mailchimp\Installer;
 
 
 use IdeaSeven\Core\Services\Installer\InstallerContract;
@@ -8,14 +8,14 @@ use Illuminate\Console\Command;
 
 class Install implements InstallerContract
 {
-    public $package = 'Pages';
+    public $package = 'McmsMailchimp';
 
     public function run(Command $command, $commands = [])
     {
 
         $this->beforeRun();
         $this->afterRun();
-        $command->call('pages:install');
+        $command->call('mcmsMailchimp:install');
     }
 
     /**

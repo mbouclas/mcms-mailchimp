@@ -1,12 +1,12 @@
 {
-  "name" : "Pages",
-  "package" : "package-pages",
+  "name" : "McmsMailchimp",
+  "package" : "mcms-mailchimp",
   "modules" : [
-    "mcms.pages"
+    "mcms.mailchimp"
   ],
   "files" : {
     "js" : [
-      "package-pages/js/pages-compiled.js"
+      "vendor/mcms/mailchimp/js/mailchimp-compiled.js"
     ],
     "css" : [
     ]

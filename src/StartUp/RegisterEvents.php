@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\StartUp;
+namespace Mcms\Mailchimp\StartUp;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Support\ServiceProvider;
@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Register your events here
  * Class RegisterEvents
- * @package Mcms\Events\StartUp
+ * @package Mcms\Mailchimp\StartUp
  */
 class RegisterEvents
 {

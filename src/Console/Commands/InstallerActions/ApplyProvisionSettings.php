@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\Console\Commands\InstallerActions;
+namespace Mcms\Mailchimp\Console\Commands\InstallerActions;
 
 
 use Illuminate\Console\Command;

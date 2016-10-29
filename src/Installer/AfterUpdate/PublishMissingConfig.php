@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\Installer\AfterUpdate;
+namespace Mcms\Mailchimp\Installer\AfterUpdate;
 
 
 use IdeaSeven\Core\Models\UpdatesLog;

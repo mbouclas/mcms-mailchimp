@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\StartUp;
+namespace Mcms\Mailchimp\StartUp;
 
 
 use IdeaSeven\Core\Widgets\Widget;
@@ -8,7 +8,7 @@ use IdeaSeven\Core\Widgets\Widget;
 /**
  * Register all your Blade directives here
  * Class RegisterDirectives
- * @package Mcms\Events\StartUp
+ * @package Mcms\Mailchimp\StartUp
  */
 class RegisterDirectives
 {

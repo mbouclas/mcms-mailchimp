@@ -1,15 +1,15 @@
 <?php
 
-namespace Mcms\Events\Console\Commands\InstallerActions;
+namespace Mcms\Mailchimp\Console\Commands\InstallerActions;
 
 
 use Illuminate\Console\Command;
 
 
 /**
- * @example php artisan vendor:publish --provider="Mcms\Events\PagesServiceProvider" --tag=config
+ * @example php artisan vendor:publish --provider="Mcms\Mailchimp\McmsMailchimpServiceProvider" --tag=config
  * Class PublishSettings
- * @package Mcms\Events\Console\Commands\InstallerActions
+ * @package Mcms\Mailchimp\Console\Commands\InstallerActions
  */
 class PublishSettings
 {
@@ -19,7 +19,7 @@ class PublishSettings
     public function handle(Command $command)
     {
         $command->call('vendor:publish', [
-            '--provider' => 'Mcms\Events\PagesServiceProvider',
+            '--provider' => 'Mcms\Mailchimp\McmsMailchimpServiceProvider',
             '--tag' => ['config'],
         ]);
 

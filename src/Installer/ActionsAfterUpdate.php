@@ -1,11 +1,11 @@
 <?php
 
-namespace Mcms\Events\Installer;
+namespace Mcms\Mailchimp\Installer;
 
 
-use Mcms\Events\Installer\AfterUpdate\CreateMissingTable;
-use Mcms\Events\Installer\AfterUpdate\PublishMissingConfig;
-use Mcms\Events\Installer\AfterUpdate\PublishMissingMigrations;
+use Mcms\Mailchimp\Installer\AfterUpdate\CreateMissingTable;
+use Mcms\Mailchimp\Installer\AfterUpdate\PublishMissingConfig;
+use Mcms\Mailchimp\Installer\AfterUpdate\PublishMissingMigrations;
 use IdeaSeven\Core\Exceptions\ErrorDuringUpdateException;
 use IdeaSeven\Core\Helpers\Installer;
 use IdeaSeven\Core\UpdatesLog\UpdatesLog;
@@ -18,7 +18,7 @@ class ActionsAfterUpdate
 
     public function __construct()
     {
-        $this->module = 'package-pages';
+        $this->module = 'mcms-mailchimp';
         $this->version = 1;
     }
 

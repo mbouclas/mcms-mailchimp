@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcms\Events\Console\Commands;
+namespace Mcms\Mailchimp\Console\Commands;
 
 /**
  * What i do :
@@ -14,12 +14,12 @@ namespace Mcms\Events\Console\Commands;
  */
 
 use IdeaSeven\Core\Helpers\Composer;
-use Mcms\Events\Console\Commands\InstallerActions\ApplyProvisionSettings;
-use Mcms\Events\Console\Commands\InstallerActions\MigrateDataBase;
-use Mcms\Events\Console\Commands\InstallerActions\PublishAssets;
-use Mcms\Events\Console\Commands\InstallerActions\PublishSettings;
-use Mcms\Events\Console\Commands\InstallerActions\PublishViews;
-use Mcms\Events\Console\Commands\InstallerActions\SeedDataBase;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\ApplyProvisionSettings;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\MigrateDataBase;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\PublishAssets;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\PublishSettings;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\PublishViews;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\SeedDataBase;
 use Illuminate\Console\Command;
 use Event;
 use \File;
@@ -27,7 +27,7 @@ use \File;
 
 /**
  * Class Install
- * @package Mcms\Events\Console\Commands
+ * @package Mcms\Mailchimp\Console\Commands
  */
 class Install extends Command
 {
@@ -46,7 +46,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $signature = 'pages:install {provisionFile?} {--action=}';
+    protected $signature = 'mcmsMailchimp:install {provisionFile?} {--action=}';
 
     /**
      * The console command description.
@@ -74,7 +74,7 @@ class Install extends Command
     {
         //load composer
         $composer = new Composer();
-        $command = "php artisan pages:refreshAssets";
+        $command = "php artisan mcmsMailchimp:refreshAssets";
 
         if ( ! in_array($command, $composer->contents['scripts']['post-update-cmd'])){
             $this->comment("adding command into composer");
@@ -84,7 +84,7 @@ class Install extends Command
         }
 
         $this->registerEvents();
-        $this->info('Pages package is starting the installation');
+        $this->info('McmsMailchimp package is starting the installation');
         $this->line('--------------');
         $actions = array_keys($this->actions);
 
@@ -108,7 +108,7 @@ class Install extends Command
         //add the post install command to be able to refresh assets
 
         
-        $this->info('Pages, all Done');
+        $this->info('McmsMailchimp, all Done');
         $this->info('---------------');
         $this->line('');
     }
@@ -118,11 +118,11 @@ class Install extends Command
      */
     private function registerEvents()
     {
-        Event::listen('installer.pages.run.before', function ($msg, $type = 'comment'){
+        Event::listen('installer.mcmsMailchimp.run.before', function ($msg, $type = 'comment'){
             $this->{$type}($msg);
         });
 
-        Event::listen('installer.pages.run.after', function ($msg, $type = 'comment'){
+        Event::listen('installer.mcmsMailchimp.run.after', function ($msg, $type = 'comment'){
             $this->{$type}($msg);
         });
     }

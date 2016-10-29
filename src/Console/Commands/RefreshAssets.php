@@ -1,10 +1,10 @@
 <?php
 
-namespace Mcms\Events\Console\Commands;
+namespace Mcms\Mailchimp\Console\Commands;
 
 use File;
-use Mcms\Events\Console\Commands\InstallerActions\PublishAssets;
-use Mcms\Events\Installer\ActionsAfterUpdate;
+use Mcms\Mailchimp\Console\Commands\InstallerActions\PublishAssets;
+use Mcms\Mailchimp\Installer\ActionsAfterUpdate;
 use Illuminate\Console\Command;
 class RefreshAssets extends Command
 {
@@ -14,14 +14,14 @@ class RefreshAssets extends Command
      *
      * @var string
      */
-    protected $signature = 'pages:refreshAssets';
+    protected $signature = 'mcmsMailchimp:refreshAssets';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Removes all old pages assets and copies the new ones';
+    protected $description = 'Removes all old assets and copies the new ones';
 
     /**
      * Create a new command instance.
@@ -42,7 +42,7 @@ class RefreshAssets extends Command
     {
         //remove the package directory
         $this->info('Removing old assets');
-        File::deleteDirectory(public_path('package-pages'));
+        File::deleteDirectory(public_path('vendor/mcms/mailchimp'));
         //bring the new assets into play
         $this->comment('done');
         $this->info('copying new assets');

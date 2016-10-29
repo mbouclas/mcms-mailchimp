@@ -1,43 +1,45 @@
 <?php
 
-namespace Mcms\Events;
+namespace Mcms\Mailchimp;
 
 
-use Mcms\Events\StartUp\RegisterAdminPackage;
-use Mcms\Events\StartUp\RegisterEvents;
-use Mcms\Events\StartUp\RegisterFacades;
-use Mcms\Events\StartUp\RegisterMiddleware;
-use Mcms\Events\StartUp\RegisterServiceProviders;
-use Mcms\Events\StartUp\RegisterSettingsManager;
-use Mcms\Events\StartUp\RegisterWidgets;
+use Mcms\Mailchimp\Service\MailchimpListCollection;
+use Mcms\Mailchimp\Service\MailchimpService;
+use Mcms\Mailchimp\StartUp\RegisterAdminPackage;
+use Mcms\Mailchimp\StartUp\RegisterEvents;
+use Mcms\Mailchimp\StartUp\RegisterFacades;
+use Mcms\Mailchimp\StartUp\RegisterMiddleware;
+use Mcms\Mailchimp\StartUp\RegisterServiceProviders;
+use Mcms\Mailchimp\StartUp\RegisterSettingsManager;
+use Mcms\Mailchimp\StartUp\RegisterWidgets;
 use Illuminate\Support\ServiceProvider;
-use \App;
+use DrewM\MailChimp\MailChimp;
 use \Installer, \Widget;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Routing\Router;
 
-class PagesServiceProvider extends ServiceProvider
+class McmsMailchimpServiceProvider extends ServiceProvider
 {
     /**
      * @var array
      */
     protected $commands = [
-        \Mcms\Events\Console\Commands\Install::class,
-        \Mcms\Events\Console\Commands\RefreshAssets::class,
+        \Mcms\Mailchimp\Console\Commands\Install::class,
+        \Mcms\Mailchimp\Console\Commands\RefreshAssets::class,
     ];
 
-    public $packageName = 'package-pages';
+    public $packageName = 'mcms-mailchimp';
 
     /**
      * Perform post-registration booting of services.
      *
      * @return void
      */
-    public function boot(DispatcherContract $events, GateContract $gate, Router $router)
+    public function boot(DispatcherContract $mailchimp, GateContract $gate, Router $router)
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('mcmsEvents.php'),
+            __DIR__ . '/../config/config.php' => config_path('mcmsMailchimp.php'),
         ], 'config');
 
         $this->publishes([
@@ -49,7 +51,7 @@ class PagesServiceProvider extends ServiceProvider
         ], 'seeds');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/mcms/events'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/mcms/mailchimp'),
         ], 'views');
 
         $this->publishes([
@@ -57,15 +59,15 @@ class PagesServiceProvider extends ServiceProvider
         ], 'lang');
 
         $this->publishes([
-            __DIR__ . '/../resources/public' => public_path('vendor/mcms/events'),
+            __DIR__ . '/../resources/public' => public_path('vendor/mcms/mailchimp'),
         ], 'public');
 
         $this->publishes([
-            __DIR__ . '/../resources/assets' => public_path('vendor/mcms/events'),
+            __DIR__ . '/../resources/assets' => public_path('vendor/mcms/mailchimp'),
         ], 'assets');
 
         $this->publishes([
-            __DIR__ . '/../config/admin.package.json' => storage_path('app/mcms/events/admin.package.json'),
+            __DIR__ . '/../config/admin.package.json' => storage_path('app/mcms/mailchimp/admin.package.json'),
         ], 'admin-package');
 
 
@@ -76,7 +78,7 @@ class PagesServiceProvider extends ServiceProvider
                 require __DIR__.'/Http/routes.php';
             });
 
-            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mcmsEvents');
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mcmsMailchimp');
         }
 
         /**
@@ -87,8 +89,8 @@ class PagesServiceProvider extends ServiceProvider
         /**
          * Register Events
          */
-//        parent::boot($events);
-        (new RegisterEvents())->handle($this, $events);
+//        parent::boot($mailchimp);
+        (new RegisterEvents())->handle($this, $mailchimp);
 
         /*
          * Register dependencies
@@ -126,11 +128,10 @@ class PagesServiceProvider extends ServiceProvider
          */
         (new RegisterFacades())->handle($this);
 
-
         /**
          * Register installer
          */
-        Installer::register(\Mcms\Events\Installer\Install::class);
+        Installer::register(\Mcms\Mailchimp\Installer\Install::class);
 
     }
 }
