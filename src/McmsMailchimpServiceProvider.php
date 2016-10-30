@@ -3,8 +3,7 @@
 namespace Mcms\Mailchimp;
 
 
-use Mcms\Mailchimp\Service\MailchimpListCollection;
-use Mcms\Mailchimp\Service\MailchimpService;
+use Mcms\Mailchimp\Installer\Install;
 use Mcms\Mailchimp\StartUp\RegisterAdminPackage;
 use Mcms\Mailchimp\StartUp\RegisterEvents;
 use Mcms\Mailchimp\StartUp\RegisterFacades;
@@ -13,11 +12,10 @@ use Mcms\Mailchimp\StartUp\RegisterServiceProviders;
 use Mcms\Mailchimp\StartUp\RegisterSettingsManager;
 use Mcms\Mailchimp\StartUp\RegisterWidgets;
 use Illuminate\Support\ServiceProvider;
-use DrewM\MailChimp\MailChimp;
-use \Installer, \Widget;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Routing\Router;
+use Installer;
 
 class McmsMailchimpServiceProvider extends ServiceProvider
 {
@@ -131,7 +129,7 @@ class McmsMailchimpServiceProvider extends ServiceProvider
         /**
          * Register installer
          */
-        Installer::register(\Mcms\Mailchimp\Installer\Install::class);
+        Installer::register(Install::class);
 
     }
 }

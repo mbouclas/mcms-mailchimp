@@ -27,7 +27,7 @@ Newsletter::getApi();
 You can install this package via Composer using:
 
 ```bash
-composer require spatie/mcmcMailchimp
+composer require mbouclas/mcms-mailchimp
 ```
 
 You must also install this service provider.
@@ -36,25 +36,16 @@ You must also install this service provider.
 // config/app.php
 'providers' => [
     ...
-    Spatie\Newsletter\NewsletterServiceProvider::class,
+    Mcms\Mailchimp\McmsMailchimpServiceProvider::class,
     ...
 ];
 ```
 
-If you want to make use of the facade you must install it as well.
-
-```php
-// config/app.php
-'aliases' => [
-    ..
-    'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
-];
-```
 
 To publish the config file to `app/config/mcmcMailchimp.php` run:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Newsletter\NewsletterServiceProvider"
+php artisan vendor:publish --provider="Mcms\Mailchimp\McmsMailchimpServiceProvider"
 ```
 
 This will publish a file `mcmcMailchimp.php` in your config directory with the following contents: 
@@ -181,7 +172,7 @@ This is how you create a campaign:
  *
  * @return array|bool
  *
- * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+ * @throws \Mcms\Mailchimp\Exceptions\InvalidMailchimpList
  */
 public function createCampaign($fromName, $replyTo, $subject, $html = '', $listName = '', $options = [], $contentOptions = [])
 ```
