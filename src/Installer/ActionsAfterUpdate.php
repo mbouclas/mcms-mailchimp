@@ -6,9 +6,9 @@ namespace Mcms\Mailchimp\Installer;
 use Mcms\Mailchimp\Installer\AfterUpdate\CreateMissingTable;
 use Mcms\Mailchimp\Installer\AfterUpdate\PublishMissingConfig;
 use Mcms\Mailchimp\Installer\AfterUpdate\PublishMissingMigrations;
-use IdeaSeven\Core\Exceptions\ErrorDuringUpdateException;
-use IdeaSeven\Core\Helpers\Installer;
-use IdeaSeven\Core\UpdatesLog\UpdatesLog;
+use Mcms\Core\Exceptions\ErrorDuringUpdateException;
+use Mcms\Core\Helpers\Installer;
+use Mcms\Core\UpdatesLog\UpdatesLog;
 use Illuminate\Console\Command;
 
 class ActionsAfterUpdate

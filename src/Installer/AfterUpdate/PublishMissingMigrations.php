@@ -3,7 +3,7 @@
 namespace Mcms\Mailchimp\Installer\AfterUpdate;
 
 
-use IdeaSeven\Core\Models\UpdatesLog;
+use Mcms\Core\Models\UpdatesLog;
 use Illuminate\Console\Command;
 
 class PublishMissingMigrations

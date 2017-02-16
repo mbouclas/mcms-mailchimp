@@ -13,7 +13,7 @@ namespace Mcms\Mailchimp\Console\Commands;
  * If you provide me with a provision file, i will make some changes to the config file of the application
  */
 
-use IdeaSeven\Core\Helpers\Composer;
+use Mcms\Core\Helpers\Composer;
 use Mcms\Mailchimp\Console\Commands\InstallerActions\ApplyProvisionSettings;
 use Mcms\Mailchimp\Console\Commands\InstallerActions\MigrateDataBase;
 use Mcms\Mailchimp\Console\Commands\InstallerActions\PublishAssets;
