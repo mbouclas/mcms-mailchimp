@@ -1,7 +1,10 @@
 <?php
 
 namespace Mcms\Mailchimp\Service;
+use Carbon\Carbon;
 use DrewM\MailChimp\MailChimp;
+use GeoIP;
+use GeoIp2\Exception\AddressNotFoundException;
 use Mcms\Mailchimp\Exceptions\InvalidMaichimpKey;
 use Mcms\Mailchimp\Exceptions\InvalidMailchimpList;
 
@@ -42,15 +45,50 @@ class MailchimpService
     public function subscribe($email, $mergeFields = [], $listName = '', $options = [])
     {
         $list = $this->lists->findByName($listName);
+        $mergeFieldsFound = $this->getMergeFields($list->getId());
+        $mergeFieldsAllowed = $mergeFieldsFound->pluck('tag')->toArray();
+        $nameFields = [
+            'fullName',
+            'full_name',
+            'name'
+        ];
 
         $defaultOptions = [
             'email_address' => $email,
             'status' => 'subscribed',
             'email_type' => 'html',
+            'timestamp_signup' => Carbon::now()->format('Y-m-d\TH:i:sP'),
+            'ip_signup' => \Request::ip(),
         ];
 
-        if (count($mergeFields)) {
-            $defaultOptions['merge_fields'] = $mergeFields;
+
+        if (count($mergeFields) > 0) {
+            foreach ($mergeFields as $key => $value){
+                if (in_array($key, $mergeFieldsAllowed)){
+                    $defaultOptions['merge_fields'][$key] = $value;
+                }
+
+                if (in_array($key, $nameFields)){
+                    $tmp = explode(' ', $value);
+                    $defaultOptions['merge_fields']['FNAME'] = $tmp[0];
+                    $defaultOptions['merge_fields']['LNAME'] = (isset($tmp[1])) ? $tmp[1] : '';
+                }
+            }
+
+        }
+
+
+        try {
+            $location = geoip()->getLocation( $defaultOptions['ip_signup'] );
+            $defaultOptions['location'] = [
+                'latitude' => $location->lat,
+                'longitude' => $location->lon,
+                'country_code' => $location->iso_code,
+                'timezone' => $location->timezone,
+            ];
+        }
+        catch(AddressNotFoundException $e){
+
         }
 
         $options = array_merge($defaultOptions, $options);
@@ -77,6 +115,17 @@ class MailchimpService
         $list = $this->lists->findByName($listName);
 
         return $this->mailChimp->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
+    }
+
+    public function getMergeFields($listId)
+    {
+
+        $response = $this->mailChimp->get("lists/{$listId}/merge-fields");
+        if (! $this->lastActionSucceeded()) {
+            return false;
+        }
+
+        return $this->lists->mergeFields($response);
     }
 
     /**

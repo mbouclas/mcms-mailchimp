@@ -89,4 +89,24 @@ class MailchimpListCollection extends Collection
 
         throw InvalidMailchimpList::defaultListDoesNotExist($this->defaultListName);
     }
+
+    /**
+     * @param array $fields
+     * @return Collection
+     */
+    public function mergeFields(array $fields)
+    {
+        $ret = new Collection();
+        $mergeFieldsArray = $fields['merge_fields'];
+
+        if ( ! is_array($mergeFieldsArray) || count($mergeFieldsArray) == 0){
+            return $ret;
+        }
+
+        foreach ($mergeFieldsArray as $field) {
+            $ret->push($field);
+        }
+
+        return $ret;
+    }
 }
