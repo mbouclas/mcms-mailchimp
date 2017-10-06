@@ -20,7 +20,7 @@ class MailchimpService
 
      * @param MailchimpListCollection $lists
      */
-    public function __construct(MailchimpListCollection $lists)
+    public function __construct(MailchimpListCollection $lists = null)
     {
         $key = env('MAILCHIMP_APIKEY');
         if ( ! $key) {
