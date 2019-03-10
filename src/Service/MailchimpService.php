@@ -102,6 +102,32 @@ class MailchimpService
         return $response;
     }
 
+    public function editMember($email, $mergeFields = [], $listName = '', $options = [])
+    {
+        $list = $this->lists->findByName($listName);
+        $mergeFieldsFound = $this->getMergeFields($list->getId());
+        $mergeFieldsAllowed = $mergeFieldsFound->pluck('tag')->toArray();
+        $nameFields = [
+            'fullName',
+            'full_name',
+            'name'
+        ];
+
+        $defaultOptions = [
+            'email_type' => 'html',
+        ];
+
+        $options = array_merge($defaultOptions, $options);
+
+        $response = $this->mailChimp->patch("lists/{$list->getId()}/members", $options);
+
+        if (! $this->lastActionSucceeded()) {
+            return false;
+        }
+
+        return $response;
+    }
+
     /**
      * @param string $email
      * @param string $listName
