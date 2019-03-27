@@ -119,7 +119,7 @@ class MailchimpService
 
         $options = array_merge($defaultOptions, $options);
 
-        $response = $this->mailChimp->patch("lists/{$list->getId()}/members", $options);
+        $response = $this->mailChimp->patch("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}", $options);
 
         if (! $this->lastActionSucceeded()) {
             return false;
