@@ -117,6 +117,22 @@ class MailchimpService
             'email_type' => 'html',
         ];
 
+        if (count($mergeFields) > 0) {
+            foreach ($mergeFields as $key => $value){
+                if (in_array($key, $mergeFieldsAllowed)){
+                    $defaultOptions['merge_fields'][$key] = $value;
+                }
+
+                if (in_array($key, $nameFields)){
+                    $tmp = explode(' ', $value);
+                    $defaultOptions['merge_fields']['FNAME'] = $tmp[0];
+                    $defaultOptions['merge_fields']['LNAME'] = (isset($tmp[1])) ? $tmp[1] : '';
+                }
+            }
+
+        }
+
+
         $options = array_merge($defaultOptions, $options);
 
         $response = $this->mailChimp->patch("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}", $options);
